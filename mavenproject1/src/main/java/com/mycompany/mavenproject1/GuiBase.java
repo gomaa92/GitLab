@@ -15,7 +15,7 @@ import javax.sql.DataSource;
  *
  * @author Gom3a
  */
-public class GuiBade {
+public class GuiBase {
     
     ResultSet resultSet = null;
     Statement statement = null;
