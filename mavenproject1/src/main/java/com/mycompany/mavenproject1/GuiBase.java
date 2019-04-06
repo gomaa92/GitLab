@@ -14,7 +14,8 @@ import javax.sql.DataSource;
 public class GuiBase extends AnchorPane {
 
 // islam code
-    ResultSet resultSet = null;
+    
+    
     protected final Label label;
     protected final Label label0;
     protected final Label label1;
@@ -192,10 +193,11 @@ public class GuiBase extends AnchorPane {
         getChildren().add(next);
         getChildren().add(last);
 
-        // ahmed code
+        
     }
+    // ahmed code
     Statement statement = null;
-
+    ResultSet resultSet = null;
     ResultSet dataBaseConnection() {
         DataSource dataSource = null;
         dataSource = MyDataSourceFactory.getMySQLDataSource();
