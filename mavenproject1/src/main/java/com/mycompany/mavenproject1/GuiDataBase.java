@@ -13,16 +13,13 @@ import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+
 import javafx.scene.Scene;
+
 import javafx.stage.Stage;
 
-/**
- *
- * @author Gom3a
- */
 public class GuiDataBase extends Application {
-    // ahmed start here
-   
+    
     boolean status = false;
     ResultSet resultSet = null;
     GuiBase root;
@@ -32,15 +29,62 @@ public class GuiDataBase extends Application {
         root = new GuiBase();
         resultSet = root.dataBaseConnection();
     }
-    
-      
 
-    
-    
-     @Override
+    @Override
     public void start(Stage primaryStage) {
-            Scene scene = new Scene(root);
-            
+
+        try {
+            resultSet.first();
+            showResult();
+        } catch (SQLException ex) {
+            Logger.getLogger(GuiDataBase.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        // islam start here
+        root.first.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent value) {
+                try {
+                    //  resultSet = root.obtainResultSet();
+                    if (resultSet.first()) {
+                        showResult();
+                    }
+                } catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        root.next.setOnAction(value -> {
+
+            try {
+                if (resultSet.next()) {
+                    showResult();
+                } else {
+                    resultSet.previous();
+                }
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+        });
+        root.previous.setOnAction(value -> {
+            try {
+                if (resultSet.previous()) {
+                    showResult();
+                } else {
+                    resultSet.next();
+                }
+            } catch (SQLException e) {
+
+                e.printStackTrace();
+            }
+
+        });
+
+        // gom3a start here
         root.newRow.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent value) {
@@ -58,7 +102,7 @@ public class GuiDataBase extends Application {
                 }
             }
         });
-        
+
         root.update.setOnAction((event) -> {
             try {
                 if (!status) {
@@ -79,7 +123,7 @@ public class GuiDataBase extends Application {
             }
 
         });
-        
+
         root.delete.setOnAction(value -> {
             try {
                 if (!status) {
@@ -95,7 +139,8 @@ public class GuiDataBase extends Application {
             }
 
         });
-         root.last.setOnAction(value -> {
+
+        root.last.setOnAction(value -> {
 
             try {
                 if (resultSet.last()) {
@@ -112,16 +157,14 @@ public class GuiDataBase extends Application {
 
         });
 
+        Scene scene = new Scene(root);
 
-
-        
-    //islam start here 
         primaryStage.setTitle("DAataBase");
         primaryStage.setScene(scene);
         primaryStage.show();
-}
-    
-        private void showResult() {
+    }
+
+    private void showResult() {
         try {
             root.id.setText(resultSet.getInt(1) + "");
             root.fName.setText(resultSet.getString(2));
@@ -133,8 +176,7 @@ public class GuiDataBase extends Application {
             Logger.getLogger(GuiDataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-        
-    
+
     private void updateRow() {
         try {
             resultSet.updateInt(1, Integer.parseInt(root.id.getText()));
@@ -148,8 +190,9 @@ public class GuiDataBase extends Application {
         }
 
     }
+
     
-     public static void main(String[] args) {
+    public static void main(String[] args) {
         launch(args);
     }
 

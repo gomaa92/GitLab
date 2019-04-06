@@ -7,8 +7,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.sql.DataSource;
 
 public class GuiBase extends AnchorPane {
