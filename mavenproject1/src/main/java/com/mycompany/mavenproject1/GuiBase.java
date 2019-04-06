@@ -1,4 +1,4 @@
-package javafxapplication17;
+package com.mycompany.mavenproject1;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
