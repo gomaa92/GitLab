@@ -1,5 +1,4 @@
-//test content for git conflict resolution
-package com.mycompany.mavenproject1;
+package javafxapplication17;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -14,6 +13,7 @@ import javax.sql.DataSource;
 
 public class GuiBase extends AnchorPane {
 
+// islam code
     ResultSet resultSet = null;
     protected final Label label;
     protected final Label label0;
@@ -192,7 +192,33 @@ public class GuiBase extends AnchorPane {
         getChildren().add(next);
         getChildren().add(last);
 
+        // ahmed code
     }
     Statement statement = null;
 
+    ResultSet dataBaseConnection() {
+        DataSource dataSource = null;
+        dataSource = MyDataSourceFactory.getMySQLDataSource();
+        Connection connection = null;
+
+        try {
+            connection = dataSource.getConnection();
+            statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
+
+            try {
+                String queryString = "select * from user";
+                resultSet = statement.executeQuery(queryString);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return resultSet;
+    }
+
+
 }
+
